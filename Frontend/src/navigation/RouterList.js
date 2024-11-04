@@ -9,9 +9,9 @@ const Stack = createStackNavigator();
 const RouterList = ({setIsLoggedIn }) => {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="OnBoarding">
+      {/* <Stack.Screen name="OnBoarding">
         {(props) => <OnBoardingScreen {...props} setIsLoggedIn={setIsLoggedIn} />}
-      </Stack.Screen>
+      </Stack.Screen> */}
       <Stack.Screen name="Login">
         {(props) => <LoginScreen {...props} setIsLoggedIn={setIsLoggedIn} />}
       </Stack.Screen>

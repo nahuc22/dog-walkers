@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "Frontend",
+    "name": "Dog-Walkers",
     "slug": "Frontend",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -15,10 +15,12 @@
       "supportsTablet": true
     },
     "android": {
+      "permissions": ["ACCESS_FILE_LOCATION"],
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       }
+      
     },
     "web": {
       "favicon": "./assets/favicon.png"

@@ -13,24 +13,27 @@ const Tab = createBottomTabNavigator();
 // Definir las rutas de las pestañas
 
 export default function TabCreator({ setIsLoggedIn }) {
+  const HomeWrapper = (props) => <Home {...props} setIsLoggedIn={setIsLoggedIn} />;
+  const InboxWrapper = (props) => <Inbox {...props} setIsLoggedIn={setIsLoggedIn} />;
+
   const TabRoutes=[
     {
         name: 'Home',
-        component: (props) => <Home {...props} setIsLoggedIn={setIsLoggedIn}/>,
+        component: HomeWrapper,
         options: {
             tabBarLabel: 'Home',
-            tabBarIcon: (props) => <CustomIcon props={props} iconName="home"/>
+            tabBarIcon: (props) => <CustomIcon props={props} iconName="home"/>,
+            headerShown: false
         },
-        header: () => <CustomHeader/>
     },
     {
         name: 'Inbox',
-        component: (props) => <Inbox {...props} setIsLoggedIn={setIsLoggedIn}/>,
+        component: InboxWrapper,
         options: {
             tabBarLabel: 'Inbox',
-            tabBarIcon: (props) => <CustomIcon props={props} iconName="chat"/>
+            tabBarIcon: (props) => <CustomIcon props={props} iconName="chat"/>,
+            headerShown: false
         },
-        header: () => <CustomHeader/>
     }
   ]
   return (

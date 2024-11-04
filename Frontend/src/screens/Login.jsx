@@ -39,7 +39,7 @@ export default function Login({setIsLoggedIn }) {
     
     return (
       <Container style={{ paddingHorizontal: scale(10)}}>
-        <View style={{marginTop: scale(10)}}>
+        <View style={{marginTop: scale(30)}}>
           <BackButton/>
         </View>
         <View style={{paddingVertical:scale(10)}}>

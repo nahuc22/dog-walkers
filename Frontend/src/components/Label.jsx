@@ -4,10 +4,10 @@ import { scale } from 'react-native-size-matters'
 import ReduxWrapper from '../redux/ReduxWrapper'
 import { appColors } from '../utils/appColors'
 
-function Label({ text , style, bold, appState:{darkMode}}) {
+function Label({ text , style, bold, appState:{darkMode} , numberOfLines, ellipsizeMode}) {
      
     return (
-    <Text style={[styles.label, style , darkMode?  styles.dark : styles.light, style , bold && styles.bold  ]}>{text}</Text>
+    <Text style={[styles.label, style , darkMode?  styles.dark : styles.light, style , bold && styles.bold  ]} numberOfLines={numberOfLines} ellipsizeMode={ellipsizeMode}>{text}</Text>
     )
 }
 

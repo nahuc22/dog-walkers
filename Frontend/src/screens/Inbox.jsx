@@ -24,7 +24,7 @@ export default function Inbox() {
   }  
   return (
     <Container>
-      <View style={{paddingHorizontal:scale(7) , paddingVertical:scale(-10)}}>
+      <View style={{ marginTop:scale(20), paddingHorizontal:scale(7) , paddingVertical:scale(-10)}}>
       <Label text="Chats" bold style={{  fontSize: scale(34) }}/>
       <SearchField placeholder="Search"/> 
       </View>
