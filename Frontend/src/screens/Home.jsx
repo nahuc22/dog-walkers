@@ -25,6 +25,10 @@ export default function HomeScreen({ setIsLoggedIn }) {
     navigator.navigate("Schedule")
   }
 
+  const onChange = () => {
+
+  }
+
   const _renderHeader = () => {
     return (<View style={{flexDirection:'row', justifyContent: 'space-between', alignItems: 'center', marginTop: scale(20)}}>
       <View>

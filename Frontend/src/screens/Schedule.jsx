@@ -1,15 +1,15 @@
-import React, { useState } from 'react'
-import { ImageBackground, Pressable, View, Text, TouchableOpacity } from 'react-native'
-import { scale } from 'react-native-size-matters'
-import Label from '../components/Label'
-import { appColors } from '../utils/appColors'
-import { MaterialIcons } from "@expo/vector-icons"
-import CustomButton from '../components/CustomButton'
-import BackButton from '../components/BackButton'
-import MiniMap from '../components/MiniMap'
+import React, { useState } from 'react';
+import { ImageBackground, Pressable, View, Text, TouchableOpacity, FlatList, StyleSheet } from 'react-native';
+import { scale } from 'react-native-size-matters';
+import Label from '../components/Label';
+import { appColors } from '../utils/appColors';
+import { MaterialIcons } from "@expo/vector-icons";
+import CustomButton from '../components/CustomButton';
+import BackButton from '../components/BackButton';
+import MiniMap from '../components/MiniMap';
+import Reviews from '../components/Reviews';
 
-export default function Schedule({setIsLoggedIn}) {
-
+export default function Schedule({ setIsLoggedIn }) {
     const [activeTab, setActiveTab] = useState("About");
     const [expanded, setExpanded] = useState(false);
 
@@ -17,7 +17,7 @@ export default function Schedule({setIsLoggedIn}) {
         setExpanded(!expanded);
     };
 
-    const Card = ({hideBorder , label , subLabel}) => {
+    const Card = ({ hideBorder, label, subLabel }) => {
         return (
             <View style={{ paddingHorizontal: scale(10), borderLeftWidth: scale(hideBorder ? 0 : 0.7), flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
                 <Label style={{ fontSize: scale(13) }} text={label ? label : "$5"} />
@@ -36,7 +36,7 @@ export default function Schedule({setIsLoggedIn}) {
 
     const Tabs = ({ activeTab, setActiveTab }) => {
         return (
-            <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginTop: scale(5) }}>
+            <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginTop: scale(5) , marginBottom:scale(10)}}>
                 <Badge isActive={activeTab === "About"} label={"About"} onPress={() => setActiveTab("About")} />
                 <Badge isActive={activeTab === "Location"} label={"Location"} onPress={() => setActiveTab("Location")} />
                 <Badge isActive={activeTab === "Reviews"} label={"Reviews"} onPress={() => setActiveTab("Reviews")} />
@@ -44,7 +44,7 @@ export default function Schedule({setIsLoggedIn}) {
         );
     };
 
-    const _renderContent = (activeTab) => {
+    const renderContent = () => {
         if (activeTab === "About") {
             return (
                 <View>
@@ -59,57 +59,102 @@ export default function Schedule({setIsLoggedIn}) {
                         </View>
                     </View>
                     <View>
-                        <Label 
+                        <Label
                             text="Alex has loved dogs since childhood. He is currently a veterinary student with a life in the small town city, have a nice feeling with the animals Alex has loved dogs since childhood. He is currently a veterinary student with a life in the small town city, have a nice feeling with the animals"
-                            style={{ paddingVertical: scale(5), fontSize: scale(13), color: appColors.gray }} 
-                            numberOfLines={expanded ? undefined : 3}  // Mostrar solo 3 líneas cuando está colapsado
+                            style={{ paddingVertical: scale(5), fontSize: scale(13), color: appColors.gray }}
+                            numberOfLines={expanded ? undefined : 3}  
                         />
                         <TouchableOpacity onPress={toggleExpand}>
                             <Text style={{ fontSize: 13, color: appColors.primary }}>
                                 {expanded ? "Show less" : "Read more"}
                             </Text>
                         </TouchableOpacity>
+                        <CustomButton label={"Agendar"} />
                     </View>
                 </View>
             );
         } else if (activeTab === "Location") {
-            return (
-                <View>
-                    <Label text="Location Information" style={{ fontSize: scale(13), color: appColors.gray }} />
-                    <MiniMap/>
-                </View>
-            );
+            return <MiniMap />;
         } else if (activeTab === "Reviews") {
-            return (
-                <View>
-                    <Label text="Reviews Section" style={{ fontSize: scale(13), color: appColors.gray }} />
-                </View>
-            );
+            return <Reviews />;
         }
-    }
+    };
 
     return (
-        <View>
-            <ImageBackground resizeMode="cover" source={require("../../assets/yo.png")} style={{
-                width: scale(350),
-                height: scale(450)
-            }}>
-                <BackButton onPress={() => navigator.navigate('OnBoarding')} style={{ marginTop: scale(20), padding: scale(10) }} />
+        <View style={styles.container}>
+            <ImageBackground
+                resizeMode="cover"
+                source={require("../../assets/yo.png")}
+                style={styles.imageBackground}
+            >
+                <BackButton onPress={() => navigator.navigate('OnBoarding')} style={styles.backButton} />
             </ImageBackground>
-            <View style={{ paddingHorizontal: scale(20), backgroundColor: appColors.white, borderTopLeftRadius: scale(20), borderTopRightRadius: scale(20), top: scale(-100) }}>
-                <View style={{ paddingVertical: scale(10), justifyContent: 'center', alignItems: 'center', borderBottomColor: appColors.gray }}>
-                    <Label text="Nahuel Castilla" style={{ fontSize: scale(28) }} bold />
-                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-                        <Card hideBorder />
-                        <Card label={"10"} subLabel={"km"} />
-                        <Card label={"4.4"} subLabel={<MaterialIcons style={{ marginBottom: scale(10) }} name="star" size={14} color={appColors.primary} />} />
-                        <Card label={"450"} subLabel={"Walks"} />
-                    </View>
-                </View>
-                <Tabs activeTab={activeTab} setActiveTab={setActiveTab} />
-                {_renderContent(activeTab)}
-                <CustomButton />
+            <View style={styles.content}>
+                <FlatList
+                    data={[{ key: 'content' }]}  
+                    renderItem={() => (
+                        <View>
+                            <View style={styles.header}>
+                                <Label text="Nahuel Castilla" style={styles.headerText} bold />
+                                <View style={styles.cardsContainer}>
+                                    <Card hideBorder />
+                                    <Card label={"10"} subLabel={"km"} />
+                                    <Card label={"4.4"} subLabel={"⭐"} />
+                                    <Card label={"450"} subLabel={"Walks"} />
+                                </View>
+                            </View>
+                            <Tabs activeTab={activeTab} setActiveTab={setActiveTab} />
+                            {renderContent()}
+                        </View>
+                    )}
+                    keyExtractor={(item) => item.key}
+                    contentContainerStyle={styles.scrollContent}
+                    showsVerticalScrollIndicator={false}
+                />
             </View>
         </View>
-    )
+    );
 }
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: appColors.white,
+    },
+    imageBackground: {
+        width: scale(350),
+        height: scale(450),
+    },
+    backButton: {
+        marginTop: scale(20),
+        padding: scale(10),
+    },
+    content: {
+        flex: 1,
+        paddingHorizontal: scale(20),
+        backgroundColor: appColors.white,
+        borderTopLeftRadius: scale(20),
+        borderTopRightRadius: scale(20),
+        marginTop: -50,
+    },
+    scrollContent: {
+        flexGrow: 1,
+        paddingBottom: scale(20),
+    },
+    header: {
+        paddingVertical: scale(10),
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderBottomColor: appColors.gray,
+        borderBottomWidth: 1,
+        marginTop: scale(5)
+    },
+    headerText: {
+        fontSize: scale(28),
+    },
+    cardsContainer: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+    },
+});
