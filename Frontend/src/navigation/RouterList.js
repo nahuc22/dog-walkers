@@ -1,8 +1,9 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import LoginScreen from '../screens/Login';
-import ScheduleScreen from '../screens/Schedule';
 import OnBoardingScreen from '../screens/OnBoarding';
+import RegisterScreen from "../screens/Register"
+import TabCreator from './TabCreator';
 
 const Stack = createStackNavigator();
 
@@ -15,9 +16,10 @@ const RouterList = ({setIsLoggedIn }) => {
       <Stack.Screen name="Login">
         {(props) => <LoginScreen {...props} setIsLoggedIn={setIsLoggedIn} />}
       </Stack.Screen>
-      <Stack.Screen name="Schedule">
-        {(props) => <ScheduleScreen {...props} setIsLoggedIn={setIsLoggedIn} />}
+      <Stack.Screen name="Register">
+        {(props) => <RegisterScreen {...props} setIsLoggedIn={setIsLoggedIn}/>}
       </Stack.Screen>
+      <Stack.Screen name="TabCreator" component={TabCreator} />
     </Stack.Navigator>
   );
 };

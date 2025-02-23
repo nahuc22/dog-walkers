@@ -1,63 +1,60 @@
 import * as React from 'react';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createStackNavigator } from '@react-navigation/stack';
 import * as Animatable from "react-native-animatable";
 import { MaterialIcons } from '@expo/vector-icons';
 import { scale } from 'react-native-size-matters';
 import { View } from 'react-native';
-import CustomHeader from '../components/CustomHeader';
-import Home from '../screens/Home'
-import Inbox from '../screens/Inbox'
+import Home from '../screens/Home';
+import Inbox from '../screens/Inbox';
+import ScheduleScreen from '../screens/Schedule';
 
 const Tab = createBottomTabNavigator();
-
-// Definir las rutas de las pestañas
+const Stack = createStackNavigator();
 
 export default function TabCreator({ setIsLoggedIn }) {
-  const HomeWrapper = (props) => <Home {...props} setIsLoggedIn={setIsLoggedIn} />;
-  const InboxWrapper = (props) => <Inbox {...props} setIsLoggedIn={setIsLoggedIn} />;
-
-  const TabRoutes=[
-    {
-        name: 'Home',
-        component: HomeWrapper,
-        options: {
-            tabBarLabel: 'Home',
-            tabBarIcon: (props) => <CustomIcon props={props} iconName="home"/>,
-            headerShown: false
-        },
-    },
-    {
-        name: 'Inbox',
-        component: InboxWrapper,
-        options: {
-            tabBarLabel: 'Inbox',
-            tabBarIcon: (props) => <CustomIcon props={props} iconName="chat"/>,
-            headerShown: false
-        },
-    }
-  ]
   return (
-    <Tab.Navigator 
-        screenOptions={{
-          tabBarLabel: '',
-          tabBarStyle: {
-            display: 'flex', // Otras opciones de estilo para la barra de pestañas
-          },
-          // Otras opciones de configuración para las pantallas
-        }}
-      >
-      {TabRoutes.map(({ name, component, options }, index) => (
-        <Tab.Screen
-          key={name} // Es preferible usar el nombre de la ruta como clave en lugar de índice
-          name={name}
-          component={component}
-          options={options}
-        />
-      ))}
-    </Tab.Navigator>
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Screen name="Tabs" options={{ headerShown: false }}>
+        {() => <TabNavigator setIsLoggedIn={setIsLoggedIn} />}
+      </Stack.Screen>
+      <Stack.Screen name="Schedule" component={ScheduleScreen} />
+    </Stack.Navigator>
   );
 }
 
+function TabNavigator({ setIsLoggedIn }) {
+  const HomeWrapper = (props) => <Home {...props} setIsLoggedIn={setIsLoggedIn} />;
+  const InboxWrapper = (props) => <Inbox {...props} setIsLoggedIn={setIsLoggedIn} />;
+
+  return (
+    <Tab.Navigator
+      screenOptions={{
+        tabBarStyle: { display: 'flex' },
+        headerShown: false, // Opcional: Si no necesitas encabezado
+      }}
+    >
+      <Tab.Screen
+        name="Home"
+        options={{
+          tabBarLabel: 'Home',
+          tabBarIcon: (props) => <CustomIcon props={props} iconName="home" />,
+        }}
+      >
+        {(props) => <HomeWrapper {...props} />}
+      </Tab.Screen>
+      <Tab.Screen 
+        name="Inbox"
+        options={{
+          tabBarLabel: 'Inbox',
+          tabBarIcon: (props) => <CustomIcon props={props} iconName="chat" />,
+        }}
+      >
+        {(props) => <InboxWrapper {...props} />}
+      </Tab.Screen>
+    </Tab.Navigator>
+  );
+}
 const CustomIcon = ({props , iconName, animationProps})  => {
   const { focused } = props
   return (

@@ -6,7 +6,7 @@ import TouchableRipple from 'react-native-touch-ripple';
 import Label from './Label';
 import { LinearGradient } from 'expo-linear-gradient';
 
-export default function CustomButton({ iconLeft, label, style, onPress, labelStyle, colors = [appColors.primary, appColors.primaryTwo], borderColor }) {
+export default function CustomButton({ iconLeft, label, style, onPress, labelStyle, colors = [appColors.primary, appColors.primaryTwo], borderColor , rippleColor = appColors.white }) {
     return (
         <LinearGradient
             start={{ x: 0.1, y: 0.2 }}
@@ -14,11 +14,11 @@ export default function CustomButton({ iconLeft, label, style, onPress, labelSty
             colors={colors}
             style={[
                 styles.gradient,
-                borderColor && { borderWidth: 1, borderColor }, // Aplica el borde si se pasa borderColor
+                borderColor && { borderWidth: 1, borderColor },
                 style,
             ]}
         >
-            <TouchableRipple rippleColor={appColors.white} onPress={onPress} rippleDuration={800} style={[styles.container]}>
+            <TouchableRipple rippleColor={rippleColor} onPress={onPress} rippleDuration={800} style={[styles.container]}>
                 {iconLeft && (
                     <View style={{ paddingHorizontal: scale(10) }}>
                         {iconLeft}

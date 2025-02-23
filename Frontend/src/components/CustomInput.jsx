@@ -2,7 +2,6 @@ import React from 'react';
 import { StyleSheet, TextInput, View } from 'react-native';
 import { appColors, shadow } from '../utils/appColors';
 import { scale } from 'react-native-size-matters';
-import ReduxWrapper from '../redux/ReduxWrapper.jsx';
 import Label from './Label.jsx';
 
 function CustomInput({
@@ -14,29 +13,28 @@ function CustomInput({
   InputStyle,
   IconRight,
   IconLeft,
-  appState: { darkMode },
 }) {
   return (
-    <View style={[styles.container, darkMode ? styles.dark : styles.light]}>
+    <View style={styles.container}>
       {IconLeft && <IconLeft />}
-      <View style={{padding: scale(8)}}>
-      <Label text={placeholder} style={{ fontSize: scale(10), color: appColors.gray}} bold />
-      <TextInput
-        placeholder={placeholder}
-        value={value}
-        onChangeText={onChangeText}
-        secureTextEntry={secureTextEntry}
-        keyboardType={keyboardType}
-        placeholderTextColor={darkMode ? styles.darkLabel.color : styles.lightLabel.color}
-        style={[styles.input, InputStyle, darkMode ? styles.darkLabel : styles.lightLabel]}
+      <View style={{ padding: scale(8) }}>
+        <Label text={placeholder} style={{ fontSize: scale(12), color: appColors.gray , marginTop: scale(5), marginBottom: scale(-6)}} bold />
+        <TextInput
+          placeholder={placeholder}
+          value={value}
+          onChangeText={onChangeText}
+          secureTextEntry={secureTextEntry}
+          keyboardType={keyboardType}
+          placeholderTextColor={appColors.placeHolderColor}
+          style={[styles.input]}
         />
+      </View>
       {IconRight && <IconRight />}
-        </View>
     </View>
   );
 }
 
-export default ReduxWrapper(CustomInput);
+export default CustomInput;
 
 const styles = StyleSheet.create({
   container: {
@@ -45,25 +43,14 @@ const styles = StyleSheet.create({
     margin: scale(5),
     height: scale(50),
     alignItems: 'center',
-    backgroundColor: appColors.white,
+    backgroundColor: appColors.lightGray,
     borderRadius: scale(14),
-    ...shadow
+    ...shadow,
   },
   input: {
-    flex: 1,
-    fontSize: scale(14),
-  },
-  light: {
-    backgroundColor: appColors.lightGray,
-  },
-  dark: {
-    backgroundColor: appColors.black,
-
-  },
-  lightLabel: {
-    color: appColors.black,
-  },
-  darkLabel: {
-    color: appColors.white,
+    height: scale(35),
+    width: scale(275),
+    fontSize: scale(15),
+    marginBottom: scale(1),
   },
 });

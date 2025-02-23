@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
 import {StyleSheet , View, Text, Button , FlatList} from 'react-native';
+import { TouchableOpacity } from 'react-native';
 import Label from '../components/Label.jsx';
 import CustomButton from '../components/CustomButton.jsx';
 import Container from '../components/Container.jsx';
@@ -8,7 +8,7 @@ import { useNavigation } from '@react-navigation/native';
 import { scale } from 'react-native-size-matters';
 import { nearYou } from '../utils/MockData.js';
 import { appColors , shadow  } from '../utils/appColors.js';
-import {MaterialIcons} from '@expo/vector-icons'
+import { MaterialIcons } from '@expo/vector-icons'
 import SearchField from '../components/SearchField.jsx';
 import NearYouCard from '../components/NearYouCard.jsx';
 
@@ -17,17 +17,12 @@ export default function HomeScreen({ setIsLoggedIn }) {
 
   const logOut = () => {
     setIsLoggedIn(false);
-    navigator.navigate("Login")
-  }
+  };
 
-  const goSchedule = () => {
-    setIsLoggedIn(false);
-    navigator.navigate("Schedule")
-  }
+  const navigateToSchedule = ( item )=> {
+    navigator.navigate('Schedule', { item });
+  };
 
-  const onChange = () => {
-
-  }
 
   const _renderHeader = () => {
     return (<View style={{flexDirection:'row', justifyContent: 'space-between', alignItems: 'center', marginTop: scale(20)}}>
@@ -46,7 +41,7 @@ export default function HomeScreen({ setIsLoggedIn }) {
   const HeadingLabel = ({label, subLabel}) => {
     return <View style={{ flexDirection: 'row' , justifyContent: 'space-between' , alignItems: 'center'}}>
       <Label text={label? label: "Near you"} style={{ fontSize: scale(34) }} bold/>
-      <Label onPress={goSchedule} text={subLabel? subLabel: "View all"} style={{ textDecorationLine: 'underline' , fontSize: scale(15)}}/>
+      <Label text={subLabel? subLabel: "View all"} style={{ textDecorationLine: 'underline' , fontSize: scale(15)}}/>
     </View>
   }
 
@@ -63,7 +58,11 @@ export default function HomeScreen({ setIsLoggedIn }) {
       data={nearYou}
       ItemSeparatorComponent={() => <View style={{padding: scale(20)}}></View>}
       showsHorizontalScrollIndicator={false}
-      renderItem={({item, index}) => <NearYouCard onPress={goSchedule} item={item} key={index}/>}
+      renderItem={({ item }) => (
+        <TouchableOpacity onPress={() => navigateToSchedule(item)}>
+          <NearYouCard item={item} />
+        </TouchableOpacity>
+      )}
       />
       </View>
       <View style={{paddingVertical:scale(20)}}>
@@ -71,6 +70,7 @@ export default function HomeScreen({ setIsLoggedIn }) {
       <FlatList
       horizontal
       data={nearYou?.reverse()}
+      keyExtractor={(item) => item.id.toString()}
       ItemSeparatorComponent={() => <View style={{padding: scale(20)}}></View>}
       showsHorizontalScrollIndicator={false}
       renderItem={({item, index}) => <NearYouCard item={item} key={index}/>}

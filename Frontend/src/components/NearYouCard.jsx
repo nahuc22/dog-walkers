@@ -9,7 +9,7 @@ export default function NearYouCard({item}) {
     const {
         name,
         img,
-        distence,
+        distance,
         price,
         rating,
     } = item;
@@ -30,7 +30,7 @@ export default function NearYouCard({item}) {
                     <Label text={name} bold />
                     <View style={{flexDirection:'row', justifyContent:'center', alignItem:'center'}}>
                     <MaterialIcons name="place" style={{marginTop: scale(1)}} / >
-                    <Label text={distence} style={{fontSize: scale(10), marginLeft: scale(5)}} />
+                    <Label text={`${distance} km from you`} style={{fontSize: scale(10), marginLeft: scale(5)}} />
                     </View>
                 </View>
                 <View backgroundColor="black" style={{ paddingVertical:scale(8), paddingHorizontal:scale(5)}} borderRadius={scale(7)} >

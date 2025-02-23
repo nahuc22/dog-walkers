@@ -1,14 +1,31 @@
 import React from 'react'
-import { StyleSheet, Text } from 'react-native'
+import { StyleSheet, Text, TouchableOpacity } from 'react-native'
 import { scale } from 'react-native-size-matters'
-import ReduxWrapper from '../redux/ReduxWrapper'
 import { appColors } from '../utils/appColors'
 
-function Label({ text , style, bold, appState:{darkMode} , numberOfLines, ellipsizeMode}) {
-     
+function Label({ text , style, bold, numberOfLines, ellipsizeMode , onPress}) {
+    if (onPress) {
+        return (
+            <TouchableOpacity onPress={onPress}>
+                <Text
+                    style={[styles.label, style, bold && styles.bold]}
+                    numberOfLines={numberOfLines}
+                    ellipsizeMode={ellipsizeMode}
+                >
+                    {text}
+                </Text>
+            </TouchableOpacity>
+        );
+    }
     return (
-    <Text style={[styles.label, style , darkMode?  styles.dark : styles.light, style , bold && styles.bold  ]} numberOfLines={numberOfLines} ellipsizeMode={ellipsizeMode}>{text}</Text>
-    )
+        <Text
+            style={[styles.label, style, bold && styles.bold]}
+            numberOfLines={numberOfLines}
+            ellipsizeMode={ellipsizeMode}
+        >
+            {text}
+        </Text>
+    );
 }
 
 const styles = StyleSheet.create({
@@ -29,4 +46,4 @@ const styles = StyleSheet.create({
 })
 
 
-export default  ReduxWrapper(Label)
+export default  Label

@@ -32,7 +32,6 @@ export default class index extends Component {
   }
   
   render() {
-    console.log("this.state ",this.state );
     const {hasError, message} = this.state;
     if (hasError) {
       return (

@@ -34,13 +34,13 @@ export function handler<TRequest extends ZodSchema,TResponse extends ZodSchema>
     try {
       const response = await options.handler(parsedReq?.data);
       if (response instanceof HttpError) {
-        res.status(response.status).send({ error: response.message });
+        res.status(response.status).send({ code: response.message });
         return;
       }
       if (options.res && response) {
         res.status(StatusCodes.OK).json(options.res.parse(response)); // sólo para remover propiedades no esperadas
       } else {
-        res.status(StatusCodes.OK);
+        res.status(StatusCodes.OK).end();
       }
     } catch (error) {
       res
@@ -49,22 +49,3 @@ export function handler<TRequest extends ZodSchema,TResponse extends ZodSchema>
     }
   };
 }
-
-// ejemplo
-// service
-async function getUserById(id: number): 
-Promise<{ id: number; name: string } | undefined> 
-{return { id: id, name: `user ${id}` };}
-
-const h = handler({
-  req: z.object({params: z.object({ id: z.number() }),}),
-  res: z.object({id: z.number(), //name: z.string(),
-}),
-  async handler(req) {
-    const user = await getUserById(req.params.id);
-    if (user === undefined) {
-      return new HttpError(404, `User ${req.params.id} not found`);
-    }
-    return user;
-  },
-});

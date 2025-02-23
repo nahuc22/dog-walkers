@@ -3,13 +3,16 @@ import { ImageBackground, Pressable, View, Text, TouchableOpacity, FlatList, Sty
 import { scale } from 'react-native-size-matters';
 import Label from '../components/Label';
 import { appColors } from '../utils/appColors';
-import { MaterialIcons } from "@expo/vector-icons";
 import CustomButton from '../components/CustomButton';
 import BackButton from '../components/BackButton';
 import MiniMap from '../components/MiniMap';
 import Reviews from '../components/Reviews';
+import { useRoute } from '@react-navigation/native';
 
-export default function Schedule({ setIsLoggedIn }) {
+export default function Schedule() {
+    const route = useRoute();
+    const { item } = route.params;
+    console.log(item)
     const [activeTab, setActiveTab] = useState("About");
     const [expanded, setExpanded] = useState(false);
 
@@ -17,10 +20,10 @@ export default function Schedule({ setIsLoggedIn }) {
         setExpanded(!expanded);
     };
 
-    const Card = ({ hideBorder, label, subLabel }) => {
+    const Card = ({ hideBorder, label, subLabel, showDollarSign  }) => {
         return (
             <View style={{ paddingHorizontal: scale(10), borderLeftWidth: scale(hideBorder ? 0 : 0.7), flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
-                <Label style={{ fontSize: scale(13) }} text={label ? label : "$5"} />
+                <Label style={{ fontSize: scale(13) }} text={showDollarSign ? `$${label}` : label}/>
                 <Label style={{ fontSize: scale(13), paddingHorizontal: scale(5), color: appColors.gray }} text={subLabel ? subLabel : "hr"} />
             </View>
         );
@@ -84,10 +87,10 @@ export default function Schedule({ setIsLoggedIn }) {
         <View style={styles.container}>
             <ImageBackground
                 resizeMode="cover"
-                source={require("../../assets/yo.png")}
+                source={item.img}
                 style={styles.imageBackground}
             >
-                <BackButton onPress={() => navigator.navigate('OnBoarding')} style={styles.backButton} />
+                <BackButton style={styles.backButton} />
             </ImageBackground>
             <View style={styles.content}>
                 <FlatList
@@ -95,11 +98,11 @@ export default function Schedule({ setIsLoggedIn }) {
                     renderItem={() => (
                         <View>
                             <View style={styles.header}>
-                                <Label text="Nahuel Castilla" style={styles.headerText} bold />
+                                <Label text={item.name} style={styles.headerText} bold />
                                 <View style={styles.cardsContainer}>
-                                    <Card hideBorder />
-                                    <Card label={"10"} subLabel={"km"} />
-                                    <Card label={"4.4"} subLabel={"⭐"} />
+                                    <Card hideBorder label={item.price} showDollarSign={true} />
+                                    <Card label={item.distance} subLabel={"km"}/>
+                                    <Card label={item.rating} subLabel={"⭐"} />
                                     <Card label={"450"} subLabel={"Walks"} />
                                 </View>
                             </View>

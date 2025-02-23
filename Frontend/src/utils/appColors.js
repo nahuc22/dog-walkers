@@ -4,6 +4,7 @@ export const appColors = {
     secondary: '#fff',
     white: '#fff',
     // black:'#000',
+    lightBlue: "rgba(87, 161, 251, 0.79)",
     black:"rgba(0,0,0,0.79)",
     gray: '#AEAEB2', // Color gris para bordes en modo claro
     darkGray: '#333333',

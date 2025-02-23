@@ -17,30 +17,34 @@ export const features = [
   //Mason York
   export const nearYou = [
     {
+      id: "1",
       name: 'Mason York',
       img: require('../../assets/near-you/img-1.png'),
-      distence: '7 km from you',
+      distance: '7',
       price: '3',
       rating: '4.2',
     },
     {
+      id: "2",
       name: 'Mark Greene',
       img: require('../../assets/near-you/img-2.png'),
-      distence: '17 km from you',
+      distance: '17',
       price: '5',
       rating: '3.2',
     },
     {
+      id: "3",
       name: 'Greene Mark',
-      img: require('../../assets/near-you/img-1.png'),
-      distence: '21 km from you',
+      img: require('../../assets/perro1.jpg'),
+      distance: '21',
       price: '9',
       rating: '4.6',
     },
     {
+      id: "4",
       name: 'Trina Kain',
       img: require('../../assets/near-you/img-2.png'),
-      distence: '4 km from you',
+      distance: '4',
       price: '8',
       rating: '4.9',
     },
@@ -49,48 +53,56 @@ export const features = [
    
   export const inboxList= [
     {
+      id: "5",
       name:"Will Knowles",
       msg:'Hey! How’s your dog? ∙ 1min',
       isRead:false,
       img:require("../../assets/users/img-1.png")
     },
     {
+      id: "6",
       name:"Ryan Bond",
       msg:'Let’s go out! ∙ 5h',
       isRead:true,
       img:require("../../assets/users/img-2.png")
     },
     {
+      id: "7",
       name:"Sirena Paul",
       msg:'Hey! Long time no see ∙ 1min',
       isRead:false,
       img:require("../../assets/users/img-3.png")
     },
     {
+      id: "8",
       name:"Matt Chapman",
       msg:'You fed the dog? ∙ 6h',
       isRead:true,
       img:require("../../assets/users/img-4.png")
     },
     {
+      id: "9",
       name:"Laura Pierce",
       msg:'How are you doing? ∙ 7h',
       isRead:true,
       img:require("../../assets/users/img-5.png")
     },
     {
+      id: "10",
       name:"Hazel Reed",
       msg:'Hey! Long time no see ∙ 5h',
       isRead:true,
       img:require("../../assets/users/img-6.png")
     },
     {
+      id: "12",
       name:"Matt Chapman",
       msg:'You fed the dog? ∙ 6h',
       isRead:true,
       img:require("../../assets/users/img-4.png")
     },
     {
+      id: "13",
       name:"Ryan Bond",
       msg:'Let’s go out! ∙ 5h',
       isRead:true,

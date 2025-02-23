@@ -5,8 +5,15 @@ import { scale } from 'react-native-size-matters';
 import Label from '../components/Label';
 import * as Animatable from 'react-native-animatable';
 import Container from '../components/Container';
+import { clearPersistedState } from '../redux/store/Store';
 
 export default function OnBoarding({ navigation }) {
+
+  const _onLogout = async () => {
+    await handleLogout();
+    navigation?.navigate("Login");
+  };
+
   const slides = [
     {
       key: 'one',

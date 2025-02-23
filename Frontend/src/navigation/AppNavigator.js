@@ -6,14 +6,18 @@ import TabCreator from './TabCreator.js'
 import RouterList from './RouterList.js';
 import { LogBox } from 'react-native';
 
-LogBox.ignoreAllLogs();
+// LogBox.ignoreAllLogs();
 export default function AppNavigator() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   return (
     <NavigationContainer>
       <ErrorBoundry>
-        {isLoggedIn ? <TabCreator setIsLoggedIn={setIsLoggedIn} /> : <RouterList setIsLoggedIn={setIsLoggedIn} />}
+        {isLoggedIn ? (
+          <TabCreator setIsLoggedIn={setIsLoggedIn} />
+        ) : (
+          <RouterList setIsLoggedIn={setIsLoggedIn} />
+        )}
       </ErrorBoundry>
     </NavigationContainer>
   );
